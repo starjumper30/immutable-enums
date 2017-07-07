@@ -1,12 +1,12 @@
-const INITIALIZED: symbol = Symbol()
+const INITIALIZED: symbol = Symbol();
 
 /**
  * An instance of the enum (for example, if you have an enumeration of seasons,
  * Winter would be an EnumValue.
  */
 export abstract class EnumValue {
-  private _ordinal: number // set in Enum.enumValuesFromObject
-  private _propName: string // set in Enum.enumValuesFromObject
+  private _ordinal: number; // set in Enum.enumValuesFromObject
+  private _propName: string; // set in Enum.enumValuesFromObject
 
   /**
    * `initEnum()` on Enum closes the class, so subsequence calls to this
@@ -14,7 +14,7 @@ export abstract class EnumValue {
    */
   constructor(private _description: string) {
     if ({}.hasOwnProperty.call(new.target, INITIALIZED)) {
-      throw new Error("EnumValue classes can’t be instantiated individually")
+      throw new Error('EnumValue classes can’t be instantiated individually');
     }
   }
 
@@ -25,11 +25,11 @@ export abstract class EnumValue {
    * @returns {string} The description
    */
   get description(): string {
-    return this._description
+    return this._description;
   }
 
   toString() {
-    return `${this.constructor.name}.${this.propName}`
+    return `${this.constructor.name}.${this.propName}`;
   }
 
   /**
@@ -38,7 +38,7 @@ export abstract class EnumValue {
    * @returns {number} The index of the instance in the enum (0-based)
    */
   get ordinal(): number {
-    return this._ordinal
+    return this._ordinal;
   }
 
   /**
@@ -47,7 +47,7 @@ export abstract class EnumValue {
    * @returns {string} the property name used for this instance in the Enum
    */
   get propName(): string {
-    return this._propName
+    return this._propName;
   }
 }
 
@@ -60,8 +60,8 @@ export abstract class Enum<T extends EnumValue> {
   private static enumValues: Map<string, EnumValue[]> = new Map<
     string,
     EnumValue[]
-  >()
-  private name: string
+  >();
+  private name: string;
 
   /**
    * Set up the enum and close the class. This must be called after the
@@ -76,11 +76,11 @@ export abstract class Enum<T extends EnumValue> {
     theEnum: Enum<T>
   ): void {
     if (Enum.enumValues.has(theEnum.name)) {
-      throw new Error(`Duplicate name: ${theEnum.name}`)
+      throw new Error(`Duplicate name: ${theEnum.name}`);
     }
-    let enumValues: T[] = this.enumValuesFromObject(theEnum)
-    Object.freeze(enumValues)
-    Enum.enumValues.set(theEnum.name, enumValues)
+    let enumValues: T[] = this.enumValuesFromObject(theEnum);
+    Object.freeze(enumValues);
+    Enum.enumValues.set(theEnum.name, enumValues);
   }
 
   /**
@@ -97,41 +97,31 @@ export abstract class Enum<T extends EnumValue> {
     const values: T[] = Object.getOwnPropertyNames(theEnum)
       .filter((propName: string) => theEnum[propName] instanceof EnumValue)
       .map((propName: string, index: number) => {
-        const enumValue: T = theEnum[propName]
-        Object.defineProperty(enumValue, "_ordinal", {
+        const enumValue: T = theEnum[propName];
+        Object.defineProperty(enumValue, '_ordinal', {
           value: index,
           configurable: false,
           writable: false,
           enumerable: true
-        })
-        Object.defineProperty(enumValue, "_propName", {
+        });
+        Object.defineProperty(enumValue, '_propName', {
           value: propName,
           configurable: false,
           writable: false,
           enumerable: true
-        })
-        Object.freeze(enumValue)
-        return enumValue
-      })
+        });
+        Object.freeze(enumValue);
+        return enumValue;
+      });
     if (values.length) {
-      values[0].constructor[INITIALIZED] = true
+      values[0].constructor[INITIALIZED] = true;
     }
-    return values
+    return values;
   }
 
   private static values(name: string): EnumValue[] {
-    let values: EnumValue[] | undefined = this.enumValues.get(name)
-    return values ? [...values] : []
-  }
-
-  /**
-   * Set up the enum and close the class.
-   *
-   * @param name The name that will be used for internal storage - must be unique
-   */
-  protected initEnum(name: string): void {
-    this.name = name
-    Enum.initEnum(name, this)
+    let values: EnumValue[] | undefined = this.enumValues.get(name);
+    return values ? [...values] : [];
   }
 
   /**
@@ -141,7 +131,7 @@ export abstract class Enum<T extends EnumValue> {
    * @returns {undefined|T} The matching instance
    */
   byPropName(propName: string): T | undefined {
-    return this.values.find((x: T) => x.propName === propName)
+    return this.values.find((x: T) => x.propName === propName);
   }
 
   /**
@@ -151,7 +141,7 @@ export abstract class Enum<T extends EnumValue> {
    * @returns {undefined|T} The matching instance
    */
   byDescription(description: string): T | undefined {
-    return this.values.find((x: T) => x.description === description)
+    return this.values.find((x: T) => x.description === description);
   }
 
   /**
@@ -160,6 +150,16 @@ export abstract class Enum<T extends EnumValue> {
    * @returns {T[]} The array of EnumValues
    */
   get values(): T[] {
-    return <T[]>Enum.values(this.name)
+    return Enum.values(this.name) as T[];
+  }
+
+  /**
+   * Set up the enum and close the class.
+   *
+   * @param name The name that will be used for internal storage - must be unique
+   */
+  protected initEnum(name: string): void {
+    this.name = name;
+    Enum.initEnum(name, this);
   }
 }
