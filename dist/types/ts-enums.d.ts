@@ -58,6 +58,11 @@ export declare abstract class Enum<T extends EnumValue> {
      * @returns {T[]} The array of EnumValues
      */
     private static enumValuesFromObject<T>(theEnum);
+    /**
+     * Extract the unique values from an array. Based on
+     * https://stackoverflow.com/a/23282057.
+     */
+    private static unique<T>(values);
     private static values(name);
     /**
      * Given the property name of an enum constant, return its value.

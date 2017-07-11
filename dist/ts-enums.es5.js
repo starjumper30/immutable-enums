@@ -112,7 +112,19 @@ var Enum = (function () {
         if (values.length) {
             values[0].constructor[INITIALIZED] = true;
         }
+        var descriptions = values.map(function (value) { return value.description; });
+        if (values.length !== this.unique(descriptions).length) {
+            throw new Error('All descriptions must be unique for a given enum type.' +
+                ("Instead, there are multiples in " + theEnum.name));
+        }
         return values;
+    };
+    /**
+     * Extract the unique values from an array. Based on
+     * https://stackoverflow.com/a/23282057.
+     */
+    Enum.unique = function (values) {
+        return values.filter(function (value, i) { return values.indexOf(value) === i; });
     };
     Enum.values = function (name) {
         var values = this.enumValues.get(name);
