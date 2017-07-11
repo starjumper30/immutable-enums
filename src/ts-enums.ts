@@ -116,7 +116,25 @@ export abstract class Enum<T extends EnumValue> {
     if (values.length) {
       values[0].constructor[INITIALIZED] = true;
     }
+
+    let descriptions: string[] = values.map(
+      (value: T): string => value.description
+    );
+    if (values.length !== this.unique(descriptions).length) {
+      throw new Error(
+        'All descriptions must be unique for a given enum type.' +
+          `Instead, there are multiples in ${theEnum.name}`
+      );
+    }
     return values;
+  }
+
+  /**
+   * Extract the unique values from an array. Based on 
+   * https://stackoverflow.com/a/23282057.
+   */
+  private static unique<T>(values: T[]): T[] {
+    return values.filter((value: T, i: number) => values.indexOf(value) === i);
   }
 
   private static values(name: string): EnumValue[] {
