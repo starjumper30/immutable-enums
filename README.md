@@ -102,35 +102,55 @@ Ts-Enums adds two properties to every enum value:
 The EnumValues are full TypeScript classes, enabling you to add properties and methods (see the [tests](test) for more examples).
 
 ```typescript
-class TicTacToeColor extends EnumValue {
-      constructor(name: string, private _inverse: { (): TicTacToeColor }) {
-        super(name);
-      }
-
-      get inverse(): TicTacToeColor {
-        return this._inverse();
-      }
+import {Enum, EnumValue} from 'ts-enums';
+import {Color, ColorEnum} from 'color';
+ 
+class BridgeSuit extends EnumValue {
+  constructor(name: string, private _isMajor: boolean = false) {
+    super(name);
+  }
+ 
+  // can use simple properties (defensively-copied 
+  // to maintain immutability)
+  get isMajor(): boolean{
+    return this._isMajor;
+  }
+ 
+  // can also use methods, though this isn't an ideal implementation. 
+  // (I would probably used another property instead of an if-else)
+  get color(): Color {
+    if (this === BridgeSuiteEnum.SPADES 
+        || this === BridgeSuiteEnum.CLUBS) {
+      return ColorEnum.BLACK;
+    } else {
+      return ColorEnum.RED;
     }
-
-    class TicTacToeColorEnumType extends Enum<TicTacToeColor> {
-
-      // Alas, data properties don’t work, because the enum
-      // values (TicTacToeColor.X etc.) don’t exist when
-      // the object literals are evaluated.
-      O: TicTacToeColor = new TicTacToeColor('O', () => this.X);
-      X: TicTacToeColor = new TicTacToeColor('X', () => this.O);
-
-      constructor() {
-        super();
-        this.initEnum('TicTacToeColor');
-      }
-    }
-
-    const TicTacToeColorEnum: TicTacToeColorEnumType =
-      new TicTacToeColorEnumType();
-
-console.log(TicTacToeColorEnum.O.inverse.toString()); // TicTacToeColor.X
-```
+  }
+}
+ 
+class BridgeSuitEnumType extends Enum {
+  SPADES: BridgeSuit = new BridgeSuit('Spades', true);
+  HEARTS: BridgeSuit = new BridgeSuit('Hearts', true);
+  DIAMONDS: BridgeSuit = new BridgeSuit('Diamonds');
+  CLUBS: BridgeSuit = new BridgeSuit('Clubs');
+ 
+  constructor() {
+    super();
+    this.initEnum('BridgeSuit');
+  }
+ 
+  // can also have methods on the overall type
+  get majors(): BridgeSuit[] {
+    return this.values.filter((suit: BridgeSuit ) => suit.isMajor);
+  }
+}
+ 
+const BridgeSuitEnum: BridgeSuitEnumType = 
+  new BridgeSuitEnumType();
+ 
+console.log(BridgeSuitEnum.HEARTS.color.toString()); // Color.RED
+console.log(BridgeSuitEnum.HEARTS.isMajor); // true
+// ```
 
 ## More information
 

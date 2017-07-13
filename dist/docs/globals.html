@@ -991,34 +991,55 @@ img { max-width: 100%; }
 			</ul>
 			<h2 id="adding-properties-to-enum-values">Adding properties to enum values</h2>
 			<p>The EnumValues are full TypeScript classes, enabling you to add properties and methods (see the <a href="test">tests</a> for more examples).</p>
-			<pre><code class="lang-typescript">class TicTacToeColor extends EnumValue {
-      constructor(name: string, private _inverse: { (): TicTacToeColor }) {
-        super(name);
-      }
+			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> {Enum, EnumValue} <span class="hljs-keyword">from</span> <span class="hljs-string">'ts-enums'</span>;
+<span class="hljs-keyword">import</span> {Color, ColorEnum} <span class="hljs-keyword">from</span> <span class="hljs-string">'color'</span>;
 
-      get inverse(): TicTacToeColor {
-        return this._inverse();
-      }
+<span class="hljs-keyword">class</span> BridgeSuit <span class="hljs-keyword">extends</span> EnumValue {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">private</span> _isMajor: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span></span>) {
+    <span class="hljs-keyword">super</span>(name);
+  }
+
+  <span class="hljs-comment">// can use simple properties (defensively-copied </span>
+  <span class="hljs-comment">// to maintain immutability)</span>
+  <span class="hljs-keyword">get</span> isMajor(): <span class="hljs-built_in">boolean</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._isMajor;
+  }
+
+  <span class="hljs-comment">// can also use methods, though this isn't an ideal implementation. </span>
+  <span class="hljs-comment">// (I would probably used another property instead of an if-else)</span>
+  <span class="hljs-keyword">get</span> color(): Color {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> === BridgeSuiteEnum.SPADES 
+        || <span class="hljs-keyword">this</span> === BridgeSuiteEnum.CLUBS) {
+      <span class="hljs-keyword">return</span> ColorEnum.BLACK;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> ColorEnum.RED;
     }
+  }
+}
 
-    class TicTacToeColorEnumType extends Enum&lt;TicTacToeColor&gt; {
+<span class="hljs-keyword">class</span> BridgeSuitEnumType <span class="hljs-keyword">extends</span> Enum {
+  SPADES: BridgeSuit = <span class="hljs-keyword">new</span> BridgeSuit(<span class="hljs-string">'Spades'</span>, <span class="hljs-literal">true</span>);
+  HEARTS: BridgeSuit = <span class="hljs-keyword">new</span> BridgeSuit(<span class="hljs-string">'Hearts'</span>, <span class="hljs-literal">true</span>);
+  DIAMONDS: BridgeSuit = <span class="hljs-keyword">new</span> BridgeSuit(<span class="hljs-string">'Diamonds'</span>);
+  CLUBS: BridgeSuit = <span class="hljs-keyword">new</span> BridgeSuit(<span class="hljs-string">'Clubs'</span>);
 
-      // Alas, data properties don’t work, because the enum
-      // values (TicTacToeColor.X etc.) don’t exist when
-      // the object literals are evaluated.
-      O: TicTacToeColor = new TicTacToeColor('O', () =&gt; this.X);
-      X: TicTacToeColor = new TicTacToeColor('X', () =&gt; this.O);
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">this</span>.initEnum(<span class="hljs-string">'BridgeSuit'</span>);
+  }
 
-      constructor() {
-        super();
-        this.initEnum('TicTacToeColor');
-      }
-    }
+  <span class="hljs-comment">// can also have methods on the overall type</span>
+  <span class="hljs-keyword">get</span> majors(): BridgeSuit[] {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.values.filter(<span class="hljs-function">(<span class="hljs-params">suit: BridgeSuit </span>) =&gt;</span> suit.isMajor);
+  }
+}
 
-    const TicTacToeColorEnum: TicTacToeColorEnumType =
-      new TicTacToeColorEnumType();
+<span class="hljs-keyword">const</span> BridgeSuitEnum: BridgeSuitEnumType = 
+  <span class="hljs-keyword">new</span> BridgeSuitEnumType();
 
-console.log(TicTacToeColorEnum.O.inverse.toString()); // TicTacToeColor.X
+<span class="hljs-built_in">console</span>.log(BridgeSuitEnum.HEARTS.color.toString()); <span class="hljs-comment">// Color.RED</span>
+<span class="hljs-built_in">console</span>.log(BridgeSuitEnum.HEARTS.isMajor); <span class="hljs-comment">// true</span>
+<span class="hljs-comment">//</span>
 </code></pre>
 			<h2 id="more-information">More information</h2>
 			<ul>
