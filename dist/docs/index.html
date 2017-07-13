@@ -948,7 +948,7 @@ img { max-width: 100%; }
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ColorEnum: ColorEnumType = <span class="hljs-keyword">new</span> ColorEnumType();
 
 <span class="hljs-comment">// examples of use</span>
-<span class="hljs-built_in">console</span>.log(ColorEnum.RED); <span class="hljs-comment">// Color.RED</span>
+<span class="hljs-built_in">console</span>.log(ColorEnum.RED.toString()); <span class="hljs-comment">// Color.RED</span>
 <span class="hljs-built_in">console</span>.log(ColorEnum.GREEN <span class="hljs-keyword">instanceof</span> Color); <span class="hljs-comment">// true</span>
 
 <span class="hljs-keyword">new</span> Color();
@@ -963,7 +963,7 @@ img { max-width: 100%; }
 			<h2 id="properties-of-enum-classes">Properties of Enum classes</h2>
 			<p>Enum exposes the getter <code>values</code>, which produces an Array with all enum values:</p>
 			<pre><code class="lang-typescript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> c of ColorEnum.values) {
-    <span class="hljs-built_in">console</span>.log(c);
+    <span class="hljs-built_in">console</span>.log(c.toString());
 }
 <span class="hljs-comment">// Output:</span>
 <span class="hljs-comment">// Color.RED</span>
@@ -990,7 +990,7 @@ img { max-width: 100%; }
 				</li>
 			</ul>
 			<h2 id="adding-properties-to-enum-values">Adding properties to enum values</h2>
-			<p>The EnumValues are full TypeScript classes, enabling you to add properties and methods (see the tests for more examples).</p>
+			<p>The EnumValues are full TypeScript classes, enabling you to add properties and methods (see the <a href="test">tests</a> for more examples).</p>
 			<pre><code class="lang-typescript">class TicTacToeColor extends EnumValue {
       constructor(name: string, private _inverse: { (): TicTacToeColor }) {
         super(name);
@@ -1018,11 +1018,12 @@ img { max-width: 100%; }
     const TicTacToeColorEnum: TicTacToeColorEnumType =
       new TicTacToeColorEnumType();
 
-console.log(TicTacToeColorEnum.O.inverse); // TicTacToeColorEnum.X
+console.log(TicTacToeColorEnum.O.inverse.toString()); // TicTacToeColor.X
 </code></pre>
 			<h2 id="more-information">More information</h2>
 			<ul>
-				<li>The directory <code>test/</code> contains examples.</li>
+				<li>The directory <a href="test">test/</a> contains examples.</li>
+				<li>See <a href="https://github.com/LMFinney/ngrx-example-app-enums">ngrx-example-app-enums</a> for a more complicated implementation supporting an <a href="https://github.com/ngrx/store">@ngrx</a> app.</li>
 			</ul>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>

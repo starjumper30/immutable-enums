@@ -45,7 +45,7 @@ class ColorEnumType extends Enum<Color> {
 export const ColorEnum: ColorEnumType = new ColorEnumType();
 
 // examples of use
-console.log(ColorEnum.RED); // Color.RED
+console.log(ColorEnum.RED.toString()); // Color.RED
 console.log(ColorEnum.GREEN instanceof Color); // true
 
 new Color();
@@ -63,7 +63,7 @@ Enum exposes the getter `values`, which produces an Array with all enum values:
 
 ```typescript
 for (const c of ColorEnum.values) {
-    console.log(c);
+    console.log(c.toString());
 }
 // Output:
 // Color.RED
@@ -99,7 +99,7 @@ Ts-Enums adds two properties to every enum value:
 
 ## Adding properties to enum values
 
-The EnumValues are full TypeScript classes, enabling you to add properties and methods (see the tests for more examples).
+The EnumValues are full TypeScript classes, enabling you to add properties and methods (see the [tests](test) for more examples).
 
 ```typescript
 class TicTacToeColor extends EnumValue {
@@ -129,9 +129,10 @@ class TicTacToeColor extends EnumValue {
     const TicTacToeColorEnum: TicTacToeColorEnumType =
       new TicTacToeColorEnumType();
 
-console.log(TicTacToeColorEnum.O.inverse); // TicTacToeColorEnum.X
+console.log(TicTacToeColorEnum.O.inverse.toString()); // TicTacToeColor.X
 ```
 
 ## More information
 
-* The directory `test/` contains examples.
+* The directory [test/](test) contains examples.
+* See [ngrx-example-app-enums](https://github.com/LMFinney/ngrx-example-app-enums) for a more complicated implementation supporting an [@ngrx](https://github.com/ngrx/store) app.

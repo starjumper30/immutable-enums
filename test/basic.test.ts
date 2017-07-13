@@ -33,6 +33,10 @@ describe('Basic Tests', () => {
       expect(ColorEnum.GREEN.ordinal).toBe(1);
     });
 
+    it('should handle toString', () => {
+      expect(ColorEnum.GREEN.toString()).toBe('Color.GREEN');
+    });
+
     it('should handle byPropName', () => {
       expect(ColorEnum.byPropName('BLUE')).toBe(ColorEnum.BLUE);
     });

@@ -1,6 +1,6 @@
 {
   "name": "ts-enums",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A fork of enumify that enables Java-like enums in TypeScript.",
   "keywords": [
     "typescript",
