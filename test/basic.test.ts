@@ -29,6 +29,10 @@ describe('Basic Tests', () => {
       expect(ColorEnum.RED.toString()).toBe('Color.RED');
     });
 
+    it('should handle toString on the type', () => {
+      expect(ColorEnum.toString()).toBe('Color');
+    });
+
     it('should handle ordinal', () => {
       expect(ColorEnum.GREEN.ordinal).toBe(1);
     });
@@ -39,6 +43,10 @@ describe('Basic Tests', () => {
 
     it('should handle byPropName', () => {
       expect(ColorEnum.byPropName('BLUE')).toBe(ColorEnum.BLUE);
+    });
+
+    it('should handle propName', () => {
+      expect(ColorEnum.BLUE.propName).toBe('BLUE');
     });
 
     it('should handle byDescription', () => {
@@ -69,6 +77,26 @@ describe('Basic Tests', () => {
       } catch (e) {
         // no-op
       }
+    });
+
+    describe('is frozen', () => {
+      it('and we should not be able to add properties to it', () => {
+        try {
+          ColorEnum['foo'] = 'bar';
+          fail('Object should not be extensible');
+        } catch (e) {
+          // no-op
+        }
+      });
+
+      it('and we should not be able to change a value', () => {
+        try {
+          ColorEnum.GREEN = ColorEnum.RED;
+          fail('Should not be able to change a value');
+        } catch (e) {
+          // no-op
+        }
+      });
     });
   });
 

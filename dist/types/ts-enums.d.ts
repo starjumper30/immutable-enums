@@ -85,6 +85,12 @@ export declare abstract class Enum<T extends EnumValue> {
      */
     readonly values: T[];
     /**
+     * Returns a simple representation of the type.
+     *
+     * @returns {string} a simple representation of the type
+     */
+    toString(): string;
+    /**
      * Set up the enum and close the class.
      *
      * @param name The name that will be used for internal storage - must be unique

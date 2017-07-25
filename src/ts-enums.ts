@@ -79,7 +79,7 @@ export abstract class Enum<T extends EnumValue> {
       throw new Error(`Duplicate name: ${theEnum.name}`);
     }
     let enumValues: T[] = this.enumValuesFromObject(theEnum);
-    Object.freeze(enumValues);
+    Object.freeze(theEnum);
     Enum.enumValues.set(theEnum.name, enumValues);
   }
 
@@ -169,6 +169,15 @@ export abstract class Enum<T extends EnumValue> {
    */
   get values(): T[] {
     return Enum.values(this.name) as T[];
+  }
+
+  /**
+   * Returns a simple representation of the type.
+   *
+   * @returns {string} a simple representation of the type
+   */
+  toString(): string {
+    return this.name;
   }
 
   /**
