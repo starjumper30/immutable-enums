@@ -5,17 +5,27 @@ const INITIALIZED: symbol = Symbol();
  * Winter would be an EnumValue.
  */
 export abstract class EnumValue {
-  private _ordinal: number; // set in Enum.enumValuesFromObject
+  private static sizes: Map<Function, number> = new Map<Function, number>();
+  private readonly _ordinal: number; // set in Enum.enumValuesFromObject
   private _propName: string; // set in Enum.enumValuesFromObject
 
   /**
-   * `initEnum()` on Enum closes the class, so subsequence calls to this
+   * `initEnum()` on Enum closes the class, so subsequent calls to this
    * constructor throw an exception.
    */
   constructor(private _description: string) {
     if ({}.hasOwnProperty.call(new.target, INITIALIZED)) {
       throw new Error('EnumValue classes can’t be instantiated individually');
     }
+    // keep track of the number of instances that have been created,
+    // and use it to set the ordinal
+    let size: number | undefined = EnumValue.sizes.get(this.constructor);
+    if (!size) {
+      size = 0;
+    }
+    this._ordinal = size;
+    size++;
+    EnumValue.sizes.set(this.constructor, size);
   }
 
   /**
@@ -96,14 +106,8 @@ export abstract class Enum<T extends EnumValue> {
   ): T[] {
     const values: T[] = Object.getOwnPropertyNames(theEnum)
       .filter((propName: string) => theEnum[propName] instanceof EnumValue)
-      .map((propName: string, index: number) => {
+      .map((propName: string) => {
         const enumValue: T = theEnum[propName];
-        Object.defineProperty(enumValue, '_ordinal', {
-          value: index,
-          configurable: false,
-          writable: false,
-          enumerable: true
-        });
         Object.defineProperty(enumValue, '_propName', {
           value: propName,
           configurable: false,

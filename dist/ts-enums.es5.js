@@ -5,7 +5,7 @@ var INITIALIZED = Symbol();
  */
 var EnumValue = (function () {
     /**
-     * `initEnum()` on Enum closes the class, so subsequence calls to this
+     * `initEnum()` on Enum closes the class, so subsequent calls to this
      * constructor throw an exception.
      */
     function EnumValue(_description) {
@@ -14,6 +14,15 @@ var EnumValue = (function () {
         if ({}.hasOwnProperty.call(_newTarget, INITIALIZED)) {
             throw new Error('EnumValue classes can’t be instantiated individually');
         }
+        // keep track of the number of instances that have been created,
+        // and use it to set the ordinal
+        var size = EnumValue.sizes.get(this.constructor);
+        if (!size) {
+            size = 0;
+        }
+        this._ordinal = size;
+        size++;
+        EnumValue.sizes.set(this.constructor, size);
     }
     Object.defineProperty(EnumValue.prototype, "description", {
         /**
@@ -55,6 +64,7 @@ var EnumValue = (function () {
         enumerable: true,
         configurable: true
     });
+    EnumValue.sizes = new Map();
     return EnumValue;
 }());
 /**
@@ -92,14 +102,8 @@ var Enum = (function () {
     Enum.enumValuesFromObject = function (theEnum) {
         var values = Object.getOwnPropertyNames(theEnum)
             .filter(function (propName) { return theEnum[propName] instanceof EnumValue; })
-            .map(function (propName, index) {
+            .map(function (propName) {
             var enumValue = theEnum[propName];
-            Object.defineProperty(enumValue, '_ordinal', {
-                value: index,
-                configurable: false,
-                writable: false,
-                enumerable: true
-            });
             Object.defineProperty(enumValue, '_propName', {
                 value: propName,
                 configurable: false,

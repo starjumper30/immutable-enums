@@ -4,10 +4,11 @@
  */
 export declare abstract class EnumValue {
     private _description;
-    private _ordinal;
+    private static sizes;
+    private readonly _ordinal;
     private _propName;
     /**
-     * `initEnum()` on Enum closes the class, so subsequence calls to this
+     * `initEnum()` on Enum closes the class, so subsequent calls to this
      * constructor throw an exception.
      */
     constructor(_description: string);
