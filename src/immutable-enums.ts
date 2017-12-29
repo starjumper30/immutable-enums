@@ -38,8 +38,6 @@ export function EnumValue(
      */
     readonly propName: string;
 
-    readonly merge: {(values: {propName: string}): IEnumValue};
-
     constructor(description: string, values: {[index: string]: any} = {}) {
       super({
         ...values as Object,
@@ -68,7 +66,7 @@ function isEnumValue(val: any): boolean {
 }
 
 function mapEnumValue<T extends IEnumValue>(
-  theEnum: Enum<T>,
+  theEnum: TsEnum<T>,
   propName: string
 ): T {
   const enumValue: T = theEnum[propName].merge({propName});

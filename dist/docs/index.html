@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ts-enums | ts-enums</title>
+	<title>immutable-enums | immutable-enums</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -879,7 +879,7 @@ img { max-width: 100%; }
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="index.html">ts-enums</a></strong>
+					<strong><a href="index.html">immutable-enums</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -914,138 +914,8 @@ img { max-width: 100%; }
 <div class="container container-main">
 	<div class="content-wrap">
 		<div class="tsd-panel tsd-typography">
-			<h1 id="ts-enums">Ts-Enums</h1>
-			<p>A TypeScript library for enums, inspired by Java enums and forked from <a href="https://github.com/rauschma/enumify">Enumify</a>.</p>
-			<h2 id="motivation">Motivation</h2>
-			<p>Dr. Axel Rauschmeyer created <a href="https://github.com/rauschma/enumify">Enumify</a> to bring an analogue of Java&#39;s Enums to JavaScript. In a <a href="http://2ality.com/2016/01/enumify.html">blog post</a>, he explained why a naive implementation of enums in JavaScript lacks the power of Java Enums.</p>
-			<p><a href="https://www.typescriptlang.org/docs/handbook/enums.html">TypeScript Enums</a> provide a start to a Java-style Enum implementation, but they lack the killer feature of Java&#39;s Enum: classes. <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html">Java&#39;s Enums</a> are full classes, enabling properties and methods (including abstract methods and overriding within an enum). In contrast, TypeScript enums are limited to being namespaced integers or strings.</p>
-			<p><a href="https://github.com/rauschma/enumify">Enumify</a> is a strong introduction to class-style enums in JavaScript, and this project ports the idea to TypeScript. This port loses the feature from Enumify of creating an enumeration from an array of Strings, but string-based TypeScript enums were added in 2.4.1, so that is not a large loss.</p>
-			<h2 id="the-basics">The basics</h2>
-			<p>Install:</p>
-			<pre><code class="lang-text">npm install ts-enums
-</code></pre>
-			<p>Use:</p>
-			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> {Enum, EnumValue} <span class="hljs-keyword">from</span> <span class="hljs-string">'ts-enums'</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Color <span class="hljs-keyword">extends</span> EnumValue {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) {
-    <span class="hljs-keyword">super</span>(name);
-  }
-}
-
-<span class="hljs-keyword">class</span> ColorEnumType <span class="hljs-keyword">extends</span> Enum&lt;Color&gt; {
-
-  RED: Color = <span class="hljs-keyword">new</span> Color(<span class="hljs-string">'RED name'</span>);
-  GREEN: Color = <span class="hljs-keyword">new</span> Color(<span class="hljs-string">'GREEN name'</span>);
-  BLUE: Color = <span class="hljs-keyword">new</span> Color(<span class="hljs-string">'BLUE name'</span>);
-
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">super</span>();
-    <span class="hljs-keyword">this</span>.initEnum(<span class="hljs-string">'Color'</span>);
-  }
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ColorEnum: ColorEnumType = <span class="hljs-keyword">new</span> ColorEnumType();
-
-<span class="hljs-comment">// examples of use</span>
-<span class="hljs-built_in">console</span>.log(ColorEnum.RED.toString()); <span class="hljs-comment">// Color.RED</span>
-<span class="hljs-built_in">console</span>.log(ColorEnum.GREEN <span class="hljs-keyword">instanceof</span> Color); <span class="hljs-comment">// true</span>
-
-<span class="hljs-keyword">new</span> Color();
-    <span class="hljs-comment">// Error: EnumValue classes can’t be instantiated individually</span>
-</code></pre>
-			<p>Unfortunately, this is not as terse as Enumify&#39;s syntax. Here are the steps: </p>
-			<ol>
-				<li>We define the implementation of EnumValue that defines each of the instances.</li>
-				<li>We implement each instance of the EnumValue as a property on the Enum. Within the Enum, we call <code>initEnum()</code> with a unique name to set up all of the Enum-specific behavior.</li>
-				<li>We export an instance of the enum so that other modules can use it.</li>
-			</ol>
-			<h2 id="properties-of-enum-classes">Properties of Enum classes</h2>
-			<p>Enum exposes the getter <code>values</code>, which produces an Array with all enum values:</p>
-			<pre><code class="lang-typescript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> c of ColorEnum.values) {
-    <span class="hljs-built_in">console</span>.log(c.toString());
-}
-<span class="hljs-comment">// Output:</span>
-<span class="hljs-comment">// Color.RED</span>
-<span class="hljs-comment">// Color.GREEN</span>
-<span class="hljs-comment">// Color.BLUE</span>
-</code></pre>
-			<p>Enum exposes the methods <code>byPropName</code> and <code>byDescription</code>, to extract the EnumValue instance by either the property name of the object in the Enum or the description string passed into the EnumValue&#39;s constructor, respectively:</p>
-			<pre><code class="lang-typescript"><span class="hljs-built_in">console</span>.log(ColorEnum.byPropName(<span class="hljs-string">'RED'</span>) === ColorEnum.RED); <span class="hljs-comment">// true</span>
-<span class="hljs-built_in">console</span>.log(ColorEnum.byDescription(<span class="hljs-string">'RED name'</span>) === ColorEnum.RED); <span class="hljs-comment">// true</span>
-<span class="hljs-literal">true</span>
-</code></pre>
-			<h2 id="properties-of-enum-values">Properties of enum values</h2>
-			<p>Ts-Enums adds two properties to every enum value:</p>
-			<ul>
-				<li><p><code>propName</code>: the property name of the object in the Enum.</p>
-					<pre><code class="lang-repl">  &gt; ColorEnum.BLUE.name
-  &#39;BLUE&#39;
-</code></pre>
-				</li>
-				<li><p><code>ordinal</code>: the position of the enum value within the Array <code>values</code>.</p>
-					<pre><code class="lang-repl">  &gt; ColorEnum.BLUE.ordinal
-  2
-</code></pre>
-				</li>
-			</ul>
-			<h2 id="adding-properties-to-enum-values">Adding properties to enum values</h2>
-			<p>The EnumValues are full TypeScript classes, enabling you to add properties and methods (see the <a href="test">tests</a> for more examples).</p>
-			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> {Enum, EnumValue} <span class="hljs-keyword">from</span> <span class="hljs-string">'ts-enums'</span>;
-<span class="hljs-keyword">import</span> {Color, ColorEnum} <span class="hljs-keyword">from</span> <span class="hljs-string">'color'</span>;
-
-<span class="hljs-keyword">class</span> BridgeSuit <span class="hljs-keyword">extends</span> EnumValue {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">private</span> _isMajor: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span></span>) {
-    <span class="hljs-keyword">super</span>(name);
-  }
-
-  <span class="hljs-comment">// can use simple properties (defensively-copied </span>
-  <span class="hljs-comment">// to maintain immutability)</span>
-  <span class="hljs-keyword">get</span> isMajor(): <span class="hljs-built_in">boolean</span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._isMajor;
-  }
-
-  <span class="hljs-comment">// can also use methods, though this isn't an ideal implementation. </span>
-  <span class="hljs-comment">// (I would probably used another property instead of an if-else)</span>
-  <span class="hljs-keyword">get</span> color(): Color {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> === BridgeSuiteEnum.SPADES 
-        || <span class="hljs-keyword">this</span> === BridgeSuiteEnum.CLUBS) {
-      <span class="hljs-keyword">return</span> ColorEnum.BLACK;
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-keyword">return</span> ColorEnum.RED;
-    }
-  }
-}
-
-<span class="hljs-keyword">class</span> BridgeSuitEnumType <span class="hljs-keyword">extends</span> Enum {
-  SPADES: BridgeSuit = <span class="hljs-keyword">new</span> BridgeSuit(<span class="hljs-string">'Spades'</span>, <span class="hljs-literal">true</span>);
-  HEARTS: BridgeSuit = <span class="hljs-keyword">new</span> BridgeSuit(<span class="hljs-string">'Hearts'</span>, <span class="hljs-literal">true</span>);
-  DIAMONDS: BridgeSuit = <span class="hljs-keyword">new</span> BridgeSuit(<span class="hljs-string">'Diamonds'</span>);
-  CLUBS: BridgeSuit = <span class="hljs-keyword">new</span> BridgeSuit(<span class="hljs-string">'Clubs'</span>);
-
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">super</span>();
-    <span class="hljs-keyword">this</span>.initEnum(<span class="hljs-string">'BridgeSuit'</span>);
-  }
-
-  <span class="hljs-comment">// can also have methods on the overall type</span>
-  <span class="hljs-keyword">get</span> majors(): BridgeSuit[] {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.values.filter(<span class="hljs-function">(<span class="hljs-params">suit: BridgeSuit </span>) =&gt;</span> suit.isMajor);
-  }
-}
-
-<span class="hljs-keyword">const</span> BridgeSuitEnum: BridgeSuitEnumType = 
-  <span class="hljs-keyword">new</span> BridgeSuitEnumType();
-
-<span class="hljs-built_in">console</span>.log(BridgeSuitEnum.HEARTS.color.toString()); <span class="hljs-comment">// Color.RED</span>
-<span class="hljs-built_in">console</span>.log(BridgeSuitEnum.HEARTS.isMajor); <span class="hljs-comment">// true</span>
-<span class="hljs-comment">//</span>
-</code></pre>
-			<h2 id="more-information">More information</h2>
-			<ul>
-				<li>The directory <a href="test">test/</a> contains examples.</li>
-				<li>See <a href="https://github.com/LMFinney/ngrx-example-app-enums">ngrx-example-app-enums</a> for a more complicated implementation supporting an <a href="https://github.com/ngrx/store">@ngrx</a> app.</li>
-			</ul>
+			<h1 id="immutable-enums">Immutable-Enums</h1>
+			<p>This is an experimental fork of ts-enums, which is itself a fork of Enumify.</p>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
 		<section class="tsd-panel-group tsd-index-group">
@@ -1055,6 +925,7 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>External modules</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-external-module"><a href="modules/_immutable_enums_.html" class="tsd-kind-icon">"immutable-<wbr>enums"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_ts_enums_.html" class="tsd-kind-icon">"ts-<wbr>enums"</a></li>
 						</ul>
 					</section>

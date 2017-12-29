@@ -1,3 +1,8 @@
+export interface IEnumValue {
+    readonly description: string;
+    readonly ordinal: number;
+    readonly propName: string;
+}
 /**
  * An instance of the enum (for example, if you have an enumeration of seasons,
  * Winter would be an EnumValue.
@@ -38,9 +43,10 @@ export declare abstract class EnumValue {
  * to turn your class into an enum (initialization is performed via
  * `this.initEnum()` within the constructor).
  */
-export declare abstract class Enum<T extends EnumValue> {
+export declare abstract class Enum<T extends IEnumValue> {
     private static enumValues;
     private name;
+    static isInitialized<T extends IEnumValue>(val: T): boolean;
     /**
      * Set up the enum and close the class. This must be called after the
      * constructor to set up the logic.
@@ -49,7 +55,7 @@ export declare abstract class Enum<T extends EnumValue> {
      * unique
      * @param theEnum The enum to process
      */
-    private static initEnum<T>(name, theEnum);
+    private static initEnum<T>(name, theEnum, isEnumValue, mapEnumValue);
     /**
      * Extract the enumValues from the Enum. We set the ordinal and propName
      * properties on the EnumValue. We also freeze the objects and lock the Enum
@@ -58,7 +64,7 @@ export declare abstract class Enum<T extends EnumValue> {
      * @param theEnum The enum to process
      * @returns {T[]} The array of EnumValues
      */
-    private static enumValuesFromObject<T>(theEnum);
+    private static enumValuesFromObject<T>(theEnum, isEnumValue, mapEnumValue);
     /**
      * Extract the unique values from an array. Based on
      * https://stackoverflow.com/a/23282057.
@@ -96,5 +102,9 @@ export declare abstract class Enum<T extends EnumValue> {
      *
      * @param name The name that will be used for internal storage - must be unique
      */
-    protected initEnum(name: string): void;
+    protected initEnum(name: string, isEnumValue?: {
+        (val: any): boolean;
+    }, mapEnumValue?: {
+        (theEnum: Enum<T>, propName: string): T;
+    }): void;
 }
