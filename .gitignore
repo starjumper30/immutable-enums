@@ -1,5 +1,5 @@
 .DS_Store
-
+.npmrc
 node_modules
 
 # Files created by build scripts
