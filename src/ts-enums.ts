@@ -1,5 +1,11 @@
 const INITIALIZED: symbol = Symbol();
 
+export interface IEnumValue {
+  readonly description: string;
+  readonly ordinal: number;
+  readonly propName: string;
+}
+
 /**
  * An instance of the enum (for example, if you have an enumeration of seasons,
  * Winter would be an EnumValue.
@@ -14,7 +20,7 @@ export abstract class EnumValue {
    * constructor throw an exception.
    */
   constructor(private _description: string) {
-    if ({}.hasOwnProperty.call(new.target, INITIALIZED)) {
+    if (Enum.isInitialized(this)) {
       throw new Error('EnumValue classes can’t be instantiated individually');
     }
     // keep track of the number of instances that have been created,
@@ -66,12 +72,16 @@ export abstract class EnumValue {
  * to turn your class into an enum (initialization is performed via
  * `this.initEnum()` within the constructor).
  */
-export abstract class Enum<T extends EnumValue> {
-  private static enumValues: Map<string, EnumValue[]> = new Map<
+export abstract class Enum<T extends IEnumValue> {
+  private static enumValues: Map<string, IEnumValue[]> = new Map<
     string,
-    EnumValue[]
+    IEnumValue[]
   >();
   private name: string;
+
+  public static isInitialized<T extends IEnumValue>(val: T): boolean {
+    return val.constructor.hasOwnProperty(INITIALIZED);
+  }
 
   /**
    * Set up the enum and close the class. This must be called after the
@@ -81,14 +91,16 @@ export abstract class Enum<T extends EnumValue> {
    * unique
    * @param theEnum The enum to process
    */
-  private static initEnum<T extends EnumValue>(
+  private static initEnum<T extends IEnumValue>(
     name: string,
-    theEnum: Enum<T>
+    theEnum: Enum<T>,
+    isEnumValue: {(val: any): boolean},
+    mapEnumValue: {(theEnum: Enum<T>, propName: string): T}
   ): void {
     if (Enum.enumValues.has(theEnum.name)) {
       throw new Error(`Duplicate name: ${theEnum.name}`);
     }
-    let enumValues: T[] = this.enumValuesFromObject(theEnum);
+    let enumValues: T[] = this.enumValuesFromObject(theEnum, isEnumValue, mapEnumValue);
     Object.freeze(theEnum);
     Enum.enumValues.set(theEnum.name, enumValues);
   }
@@ -101,22 +113,14 @@ export abstract class Enum<T extends EnumValue> {
    * @param theEnum The enum to process
    * @returns {T[]} The array of EnumValues
    */
-  private static enumValuesFromObject<T extends EnumValue>(
-    theEnum: Enum<T>
+  private static enumValuesFromObject<T extends IEnumValue>(
+    theEnum: Enum<T>,
+    isEnumValue: {(val: any): boolean},
+    mapEnumValue: {(theEnum: Enum<T>, propName: string): T}
   ): T[] {
     const values: T[] = Object.getOwnPropertyNames(theEnum)
-      .filter((propName: string) => theEnum[propName] instanceof EnumValue)
-      .map((propName: string) => {
-        const enumValue: T = theEnum[propName];
-        Object.defineProperty(enumValue, '_propName', {
-          value: propName,
-          configurable: false,
-          writable: false,
-          enumerable: true
-        });
-        Object.freeze(enumValue);
-        return enumValue;
-      });
+      .filter((propName: string) => isEnumValue(theEnum[propName]))
+      .map((propName: string) => mapEnumValue(theEnum, propName));
     if (values.length) {
       values[0].constructor[INITIALIZED] = true;
     }
@@ -141,8 +145,8 @@ export abstract class Enum<T extends EnumValue> {
     return values.filter((value: T, i: number) => values.indexOf(value) === i);
   }
 
-  private static values(name: string): EnumValue[] {
-    let values: EnumValue[] | undefined = this.enumValues.get(name);
+  private static values(name: string): IEnumValue[] {
+    let values: IEnumValue[] | undefined = this.enumValues.get(name);
     return values ? [...values] : [];
   }
 
@@ -189,8 +193,25 @@ export abstract class Enum<T extends EnumValue> {
    *
    * @param name The name that will be used for internal storage - must be unique
    */
-  protected initEnum(name: string): void {
+  protected initEnum(name: string,
+                     isEnumValue: {(val: any): boolean} = (val: any): boolean => {
+                       return val instanceof EnumValue;
+                     },
+                     mapEnumValue: {(theEnum: Enum<T>, propName: string): T} = (theEnum: Enum<T>, propName: string): T => {
+                       const enumValue: T = theEnum[propName];
+
+                       Object.defineProperty(enumValue, '_propName', {
+                         value: propName,
+                         configurable: false,
+                         writable: false,
+                         enumerable: true
+                       });
+                       Object.freeze(enumValue);
+                       return enumValue;
+                     }
+  ): void {
     this.name = name;
-    Enum.initEnum(name, this);
+    Enum.initEnum(name, this, isEnumValue, mapEnumValue);
   }
 }
+
