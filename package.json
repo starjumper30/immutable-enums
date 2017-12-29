@@ -1,22 +1,23 @@
 {
-  "name": "ts-enums",
-  "version": "0.0.6",
-  "description": "A fork of enumify that enables Java-like enums in TypeScript.",
+  "name": "immutable-enums",
+  "version": "0.0.1",
+  "description": "A fork of ts-enums that enables Java-like enums in TypeScript using immutablejs.",
   "keywords": [
     "typescript",
     "enum",
-    "enumify"
+    "enumify",
+    "immutable"
   ],
-  "main": "dist/ts-enums.umd.js",
-  "module": "dist/ts-enums.es5.js",
-  "typings": "dist/types/ts-enums.d.ts",
+  "main": "dist/immutable-enums.umd.js",
+  "module": "dist/immutable-enums.es5.js",
+  "typings": "dist/types/immutable-enums.d.ts",
   "files": [
     "dist"
   ],
-  "author": "Lance Finney <LMFinney@alum.wustl.edu> (https://lmfinney.wordpress.com/)",
+  "author": "Chris Hardin <starjumper30@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LMFinney/ts-enums"
+    "url": "https://github.com/starjumper30/immutable-enums"
   },
   "license": "MIT",
   "engines": {
@@ -74,6 +75,9 @@
         "statements": 95
       }
     }
+  },
+  "dependencies": {
+    "immutable": "^4.0.0-rc.9"
   },
   "devDependencies": {
     "@types/jest": "^20.0.2",

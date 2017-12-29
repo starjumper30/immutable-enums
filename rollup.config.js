@@ -4,7 +4,7 @@ import sourceMaps from 'rollup-plugin-sourcemaps'
 const pkg = require('./package.json')
 const camelCase = require('lodash.camelcase')
 
-const libraryName = 'ts-enums'
+const libraryName = pkg.name;
 
 export default {
     entry: `compiled/${libraryName}.js`,
@@ -14,7 +14,8 @@ export default {
     ],
     sourceMap: true,
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-    external: [],
+    globals: ['immutable'],
+    external: ['immutable'],
     plugins: [
         // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
         commonjs(),
