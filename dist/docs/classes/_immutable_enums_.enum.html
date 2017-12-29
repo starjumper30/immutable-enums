@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EnumValue | immutable-enums</title>
+	<title>Enum | immutable-enums</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -909,46 +909,40 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-			<a href="_ts_enums_.enum.html" class="tsd-kind-icon">Enum</a>
-		</li>
-		<li class="current tsd-kind-class tsd-parent-kind-external-module">
-			<a href="_ts_enums_.enumvalue.html" class="tsd-kind-icon">Enum<wbr>Value</a>
+		<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+			<a href="_immutable_enums_.enum.html" class="tsd-kind-icon">Enum</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class">
-					<a href="_ts_enums_.enumvalue.html#constructor" class="tsd-kind-icon">constructor</a>
+				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a href="_immutable_enums_.enum.html#values" class="tsd-kind-icon">values</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="_ts_enums_.enumvalue.html#_description" class="tsd-kind-icon">_description</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="_immutable_enums_.enum.html#bydescription" class="tsd-kind-icon">by<wbr>Description</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="_ts_enums_.enumvalue.html#_ordinal" class="tsd-kind-icon">_ordinal</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="_immutable_enums_.enum.html#bypropname" class="tsd-kind-icon">by<wbr>Prop<wbr>Name</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="_ts_enums_.enumvalue.html#_propname" class="tsd-kind-icon">_prop<wbr>Name</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+					<a href="_immutable_enums_.enum.html#initenum" class="tsd-kind-icon">init<wbr>Enum</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
-					<a href="_ts_enums_.enumvalue.html#sizes" class="tsd-kind-icon">sizes</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="_immutable_enums_.enum.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 				</li>
-				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-					<a href="_ts_enums_.enumvalue.html#description" class="tsd-kind-icon">description</a>
-				</li>
-				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-					<a href="_ts_enums_.enumvalue.html#ordinal" class="tsd-kind-icon">ordinal</a>
-				</li>
-				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-					<a href="_ts_enums_.enumvalue.html#propname" class="tsd-kind-icon">prop<wbr>Name</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="_ts_enums_.enumvalue.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+					<a href="_immutable_enums_.enum.html#isinitialized" class="tsd-kind-icon">is<wbr>Initialized</a>
 				</li>
 			</ul>
 		</li>
 		<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-			<a href="../interfaces/_ts_enums_.ienumvalue.html" class="tsd-kind-icon">IEnum<wbr>Value</a>
+			<a href="../interfaces/_immutable_enums_.enumvaluetype.html" class="tsd-kind-icon">Enum<wbr>Value<wbr>Type</a>
 		</li>
-		<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-			<a href="../modules/_ts_enums_.html#initialized" class="tsd-kind-icon">INITIALIZED</a>
+		<li class=" tsd-kind-function tsd-parent-kind-external-module">
+			<a href="../modules/_immutable_enums_.html#enumvalue" class="tsd-kind-icon">Enum<wbr>Value</a>
+		</li>
+		<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+			<a href="../modules/_immutable_enums_.html#isenumvalue" class="tsd-kind-icon">is<wbr>Enum<wbr>Value</a>
+		</li>
+		<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+			<a href="../modules/_immutable_enums_.html#mapenumvalue" class="tsd-kind-icon">map<wbr>Enum<wbr>Value</a>
 		</li>
 	</ul>
 </nav>
@@ -957,16 +951,30 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>An instance of the enum (for example, if you have an enumeration of seasons,
-					Winter would be an EnumValue.</p>
+					<p>This is an abstract class that is not intended to be used directly. Extend it
+						to turn your class into an enum (initialization is performed via
+					<code>this.initEnum()</code> within the constructor).</p>
 				</div>
 			</div>
+		</section>
+		<section class="tsd-panel tsd-type-parameters">
+			<h3>Type parameters</h3>
+			<ul class="tsd-type-parameters">
+				<li>
+					<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/_ts_enums_.ienumvalue.html" class="tsd-signature-type">IEnumValue</a></h4>
+				</li>
+			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">EnumValue</span>
+					<a href="_ts_enums_.enum.html" class="tsd-signature-type">Enum</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
+					<ul class="tsd-hierarchy">
+						<li>
+							<span class="target">Enum</span>
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</section>
@@ -974,178 +982,201 @@ img { max-width: 100%; }
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
-						<h3>Constructors</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_ts_enums_.enumvalue.html#constructor" class="tsd-kind-icon">constructor</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
-						<h3>Properties</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_ts_enums_.enumvalue.html#_description" class="tsd-kind-icon">_description</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_ts_enums_.enumvalue.html#_ordinal" class="tsd-kind-icon">_ordinal</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_ts_enums_.enumvalue.html#_propname" class="tsd-kind-icon">_prop<wbr>Name</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_ts_enums_.enumvalue.html#sizes" class="tsd-kind-icon">sizes</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
+					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Accessors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_ts_enums_.enumvalue.html#description" class="tsd-kind-icon">description</a></li>
-							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_ts_enums_.enumvalue.html#ordinal" class="tsd-kind-icon">ordinal</a></li>
-							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_ts_enums_.enumvalue.html#propname" class="tsd-kind-icon">prop<wbr>Name</a></li>
+							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_immutable_enums_.enum.html#values" class="tsd-kind-icon">values</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="_ts_enums_.enumvalue.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_immutable_enums_.enum.html#bydescription" class="tsd-kind-icon">by<wbr>Description</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_immutable_enums_.enum.html#bypropname" class="tsd-kind-icon">by<wbr>Prop<wbr>Name</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="_immutable_enums_.enum.html#initenum" class="tsd-kind-icon">init<wbr>Enum</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_immutable_enums_.enum.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_immutable_enums_.enum.html#isinitialized" class="tsd-kind-icon">is<wbr>Initialized</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-				<a name="constructor" class="tsd-anchor"></a>
-				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Enum<wbr>Value<span class="tsd-signature-symbol">(</span>_description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_ts_enums_.enumvalue.html" class="tsd-signature-type">EnumValue</a></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L16">ts-enums.ts:16</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p><code>initEnum()</code> on Enum closes the class, so subsequent calls to this
-								constructor throw an exception.</p>
-							</div>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>_description: <span class="tsd-signature-type">string</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="_ts_enums_.enumvalue.html" class="tsd-signature-type">EnumValue</a></h4>
-					</li>
-				</ul>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-				<a name="_description" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> _description</h3>
-				<div class="tsd-signature tsd-kind-icon">_description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L22">ts-enums.ts:22</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-				<a name="_ordinal" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> _ordinal</h3>
-				<div class="tsd-signature tsd-kind-icon">_ordinal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L15">ts-enums.ts:15</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-				<a name="_propname" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> _prop<wbr>Name</h3>
-				<div class="tsd-signature tsd-kind-icon">_prop<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L16">ts-enums.ts:16</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
-				<a name="sizes" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagPrivate">Private</span> sizes</h3>
-				<div class="tsd-signature tsd-kind-icon">sizes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map&lt;Function, number&gt;()</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L14">ts-enums.ts:14</a></li>
-					</ul>
-				</aside>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
+		<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 			<h2>Accessors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-				<a name="description" class="tsd-anchor"></a>
-				<h3>description</h3>
-				<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> </div>
+			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+				<a name="values" class="tsd-anchor"></a>
+				<h3>values</h3>
+				<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
+					<p>Inherited from <a href="_ts_enums_.enum.html">Enum</a>.<a href="_ts_enums_.enum.html#values">values</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L43">ts-enums.ts:43</a></li>
+						<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/3cf0c3b/src/ts-enums.ts#L178">ts-enums.ts:178</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The description of the instance passed into the constructor - may be the
-						same as the propName.</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-				<a name="ordinal" class="tsd-anchor"></a>
-				<h3>ordinal</h3>
-				<div class="tsd-signature tsd-kind-icon">ordinal<span class="tsd-signature-symbol">:</span> </div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L56">ts-enums.ts:56</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Returns the index of the instance in the enum (0-based)</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-				<a name="propname" class="tsd-anchor"></a>
-				<h3>prop<wbr>Name</h3>
-				<div class="tsd-signature tsd-kind-icon">prop<wbr>Name<span class="tsd-signature-symbol">:</span> </div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L65">ts-enums.ts:65</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Returns the property name used for this instance in the Enum.</p>
+						<p>Return a defensively-copied array of all the elements of the enum.</p>
 					</div>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<a name="bydescription" class="tsd-anchor"></a>
+				<h3>by<wbr>Description</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">by<wbr>Description<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="_ts_enums_.enum.html">Enum</a>.<a href="_ts_enums_.enum.html#bydescription">byDescription</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/3cf0c3b/src/ts-enums.ts#L169">ts-enums.ts:169</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Given the description of an enum constant, return its value.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>description: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The property name to search by</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span>
+							<span class="tsd-signature-symbol"> | </span>
+							<span class="tsd-signature-type">undefined</span>
+						</h4>
+						<p>The matching instance</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<a name="bypropname" class="tsd-anchor"></a>
+				<h3>by<wbr>Prop<wbr>Name</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">by<wbr>Prop<wbr>Name<span class="tsd-signature-symbol">(</span>propName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="_ts_enums_.enum.html">Enum</a>.<a href="_ts_enums_.enum.html#bypropname">byPropName</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/3cf0c3b/src/ts-enums.ts#L159">ts-enums.ts:159</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Given the property name of an enum constant, return its value.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>propName: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The property name to search by</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span>
+							<span class="tsd-signature-symbol"> | </span>
+							<span class="tsd-signature-type">undefined</span>
+						</h4>
+						<p>The matching instance</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+				<a name="initenum" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> init<wbr>Enum</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">init<wbr>Enum<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Overrides <a href="_ts_enums_.enum.html">Enum</a>.<a href="_ts_enums_.enum.html#initenum">initEnum</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/3cf0c3b/src/immutable-enums.ts#L88">immutable-enums.ts:88</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Set up the enum and close the class.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>name: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The name that will be used for internal storage - must be unique</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="tostring" class="tsd-anchor"></a>
 				<h3>to<wbr>String</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Inherited from <a href="_ts_enums_.enum.html">Enum</a>.<a href="_ts_enums_.enum.html#tostring">toString</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/edf16df/src/ts-enums.ts#L47">ts-enums.ts:47</a></li>
+								<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/3cf0c3b/src/ts-enums.ts#L187">ts-enums.ts:187</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns a simple representation of the type.</p>
+							</div>
+						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						<p>a simple representation of the type</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+				<a name="isinitialized" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Initialized</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">is<wbr>Initialized&lt;T&gt;<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="_ts_enums_.enum.html">Enum</a>.<a href="_ts_enums_.enum.html#isinitialized">isInitialized</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/starjumper30/immutable-enums/blob/3cf0c3b/src/ts-enums.ts#L82">ts-enums.ts:82</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/_ts_enums_.ienumvalue.html" class="tsd-signature-type">IEnumValue</a></h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>val: <span class="tsd-signature-type">T</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 					</li>
 				</ul>
 			</section>
