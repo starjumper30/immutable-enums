@@ -1,19 +1,21 @@
 import {Record} from 'immutable';
-import * as tsEnums from './ts-enums';
-import {IEnumValue} from './ts-enums';
+import {IEnumValue, Enum as TsEnum} from './ts-enums';
 
 export interface EnumValueType {
-  new (description: string, values?: {[index: string]: any}): tsEnums.IEnumValue;
+  new (description: string, values?: {[index: string]: any}): IEnumValue;
 }
 
-export function EnumValue(defaultValues: {[index: string]: any}, name?: string): EnumValueType {
+export function EnumValue(
+  defaultValues: {[index: string]: any},
+  name?: string
+): EnumValueType {
   let size = 0;
   const allDefaults: any = {
-    ordinal:undefined,
-    description:undefined,
-    propName:undefined,
-    isEnumValue:true,
-    ...(defaultValues as Object)
+    ordinal: undefined,
+    description: undefined,
+    propName: undefined,
+    isEnumValue: true,
+    ...defaultValues as Object
   };
 
   /**
@@ -36,11 +38,16 @@ export function EnumValue(defaultValues: {[index: string]: any}, name?: string):
      */
     readonly propName: string;
 
-    readonly merge: {(values: {propName: string}): tsEnums.IEnumValue};
+    readonly merge: {(values: {propName: string}): IEnumValue};
 
     constructor(description: string, values: {[index: string]: any} = {}) {
-      super({...values as Object, description, ordinal: size, isEnumValue:true});
-      if (tsEnums.Enum.isInitialized(this)) {
+      super({
+        ...values as Object,
+        description,
+        ordinal: size,
+        isEnumValue: true
+      });
+      if (TsEnum.isInitialized(this)) {
         throw new Error('EnumValue classes can’t be instantiated individually');
       }
 
@@ -56,12 +63,14 @@ export function EnumValue(defaultValues: {[index: string]: any}, name?: string):
   return EnumValue;
 }
 
-
 function isEnumValue(val: any): boolean {
   return val.isEnumValue && val.merge instanceof Function;
 }
 
-function mapEnumValue<T extends IEnumValue>(theEnum: Enum<T>, propName: string): T {
+function mapEnumValue<T extends IEnumValue>(
+  theEnum: Enum<T>,
+  propName: string
+): T {
   const enumValue: T = theEnum[propName].merge({propName});
   theEnum[propName] = enumValue;
   return enumValue;
@@ -72,7 +81,7 @@ function mapEnumValue<T extends IEnumValue>(theEnum: Enum<T>, propName: string):
  * to turn your class into an enum (initialization is performed via
  * `this.initEnum()` within the constructor).
  */
-export abstract class Enum<T extends tsEnums.IEnumValue> extends tsEnums.Enum<T> {
+export abstract class Enum<T extends IEnumValue> extends TsEnum<T> {
   /**
    * Set up the enum and close the class.
    *
